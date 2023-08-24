@@ -24,7 +24,7 @@ Change `repo-location` to a path of your choosing and then run `emerge --sync li
 On terminal:
 
 ```bash
-sudo eselect repository add librewolf git https://gitlab.com/librewolf-community/browser/gentoo.git
+sudo eselect repository add librewolf git https://codeberg.org/librewolf/gentoo.git
 ```
 
 ### Layman way
