@@ -1,0 +1,42 @@
+Title: Codeberg Migration
+Author: James McClain <james@thegreatmcpain.xyz>
+Content-Type: text/plain
+Posted: 2023-08-23
+Revision: 1
+News-Item-Format: 1.0
+
+As of now Librewolf has moved from Gitlab to Codeberg.
+
+More information can be found here:
+https://gitlab.com/librewolf-community/settings/-/issues/265
+
+Those who started using Librewolf's Gentoo overlay before the migration will
+need to re-add the repository to recieve new updates.
+
+For '/etc/portage/repos.conf'
+=============================
+Simply change the 'sync-uri' field to the url below.
+
+https://codeberg.org/librewolf/gentoo.git
+
+You may need to manually delete the repository and re-sync.
+
+For 'eselect repository'
+========================
+1. Remove the overlay via
+
+> eselect repository remove -f librewolf
+
+2. then re-add the overlay via
+
+> eselect repository add librewolf git https://codeberg.org/librewolf/gentoo.git
+
+For those still using layman
+============================
+1. Remove the overlay
+
+> layman -d librewolf
+
+2. Re-add the overlay
+
+> layman -o https://codeberg.org/librewolf/gentoo/raw/branch/master/repository.xml -f -a librewolf
