@@ -37,7 +37,7 @@ SRC_URI="${SRC_URI}
 	arm64? ( https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/${LIBREWOLF_PV}/librewolf-${LIBREWOLF_PV}-linux-arm64-package.tar.bz2 )"
 
 DESCRIPTION="LibreWolf Web Browser"
-HOMEPAGE="https://librewolf-community.gitlab.io/"
+HOMEPAGE="https://librewolf.net/"
 
 KEYWORDS="-* amd64"
 SLOT="0"
