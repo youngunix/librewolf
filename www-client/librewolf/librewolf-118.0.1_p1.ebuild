@@ -1435,6 +1435,7 @@ pkg_postinst() {
 	fi
 
 	readme.gentoo_print_elog
+
 	elog
 
 	optfeature_header "Optional programs for extra features:"
