@@ -3,7 +3,7 @@
 
 EAPI=8
 
-FIREFOX_PATCHSET="firefox-118-patches-04.tar.xz"
+FIREFOX_PATCHSET="firefox-119-patches-01.tar.xz"
 
 LLVM_MAX_SLOT=17
 
@@ -114,7 +114,7 @@ BDEPEND="${PYTHON_DEPS}
 	app-alternatives/awk
 	app-arch/unzip
 	app-arch/zip
-	>=dev-util/cbindgen-0.24.3
+	>=dev-util/cbindgen-0.26.0
 	net-libs/nodejs
 	virtual/pkgconfig
 	!clang? ( >=virtual/rust-1.65 )
@@ -136,7 +136,7 @@ COMMON_DEPEND="${FF_ONLY_DEPEND}
 	dev-libs/expat
 	dev-libs/glib:2
 	dev-libs/libffi:=
-	>=dev-libs/nss-3.93
+	>=dev-libs/nss-3.94
 	>=dev-libs/nspr-4.35
 	media-libs/alsa-lib
 	media-libs/fontconfig
@@ -1080,31 +1080,23 @@ src_configure() {
 		fi
 	fi
 
-	if use clang ; then
-		# https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
-		# https://bugzilla.mozilla.org/show_bug.cgi?id=1483822
-		# toolkit/moz.configure Elfhack section: target.cpu in ('arm', 'x86', 'x86_64')
-		local disable_elf_hack=
-		if use amd64 ; then
-			disable_elf_hack=yes
-		elif use x86 ; then
-			disable_elf_hack=yes
-		elif use arm ; then
-			disable_elf_hack=yes
+	# elf-hack
+	if use amd64 || use x86 ; then
+		if tc-ld-is-mold ; then
+			# relr-elf-hack is currently broken with mold, bgo#916259
+			mozconfig_add_options_ac 'disable elf-hack with mold linker' --disable-elf-hack
+		else
+			if use clang ; then
+				mozconfig_add_options_ac 'relr elf-hack with clang' --enable-elf-hack=relr
+			else
+				mozconfig_add_options_ac 'legacy elf-hack with gcc' --enable-elf-hack=legacy
+			fi
 		fi
-
-		if [[ -n ${disable_elf_hack} ]] ; then
-			mozconfig_add_options_ac 'elf-hack is broken when using Clang' --disable-elf-hack
-		fi
-	elif tc-is-gcc ; then
-		if ver_test $(gcc-fullversion) -ge 10 ; then
-			einfo "Forcing -fno-tree-loop-vectorize to workaround GCC bug, see bug 758446 ..."
-			append-cxxflags -fno-tree-loop-vectorize
-		fi
-	fi
-
-	if use elibc_musl && use arm64 ; then
-		mozconfig_add_options_ac 'elf-hack is broken when using musl/arm64' --disable-elf-hack
+	elif use ppc64 ; then
+		# '--disable-elf-hack' is not recognized on ppc64, bgo#917049
+		:;
+	else
+		mozconfig_add_options_ac 'disable elf-hack on non-supported arches' --disable-elf-hack
 	fi
 
 	# Additional ARCH support
