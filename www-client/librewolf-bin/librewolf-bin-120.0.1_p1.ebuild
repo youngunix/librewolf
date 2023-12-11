@@ -49,7 +49,6 @@ RESTRICT="strip"
 BDEPEND="app-arch/unzip"
 RDEPEND="${DEPEND}
 	>=app-accessibility/at-spi2-core-2.46.0:2
-	dev-libs/dbus-glib
 	>=dev-libs/glib-2.26:2
 	media-libs/alsa-lib
 	media-libs/fontconfig
@@ -68,7 +67,6 @@ RDEPEND="${DEPEND}
 	x11-libs/libXi
 	x11-libs/libXrandr
 	x11-libs/libXrender
-	x11-libs/libXtst
 	x11-libs/libxcb
 	>=x11-libs/pango-1.22.0
 	alsa? (
