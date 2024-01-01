@@ -13,7 +13,7 @@ Create the `/etc/portage/repos.conf/librewolf.conf` file as follows:
 priority = 50
 location = <repo-location>/librewolf
 sync-type = git
-sync-uri = https://codeberg.org/librewolf/gentoo.git
+sync-uri = https://github.com/youngunix/librewolf.git
 auto-sync = Yes
 ```
 
@@ -24,7 +24,7 @@ Change `repo-location` to a path of your choosing and then run `emerge --sync li
 On terminal:
 
 ```bash
-sudo eselect repository add librewolf git https://codeberg.org/librewolf/gentoo.git
+sudo eselect repository add librewolf git https://github.com/youngunix/librewolf.git
 ```
 
 ### Layman way
@@ -32,7 +32,7 @@ sudo eselect repository add librewolf git https://codeberg.org/librewolf/gentoo.
 On terminal:
 
 ```bash
-sudo layman -o https://codeberg.org/librewolf/gentoo/raw/branch/master/repository.xml -f -a librewolf
+sudo layman -o https://github.com/youngunix/librewolf/blob/master/repository.xml -f -a librewolf
 ```
 
 And then run `emerge --sync librewolf`, Portage should now find and update the repository.
