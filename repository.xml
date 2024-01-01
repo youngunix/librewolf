@@ -4,7 +4,7 @@
   <repo priority="50" quality="experimental" status="unofficial">
     <name>librewolf</name>
     <description>Librewolf packaging for Gentoo.</description>
-    <homepage>https://codeberg.org/librewolf/gentoo</homepage>
-    <source type="git">https://codeberg.org/librewolf/gentoo.git</source>
+    <homepage>https://librewolf.net</homepage>
+    <source type="git">https://github.com/youngunix/librewolf.git</source>
   </repo>
 </repostories>
