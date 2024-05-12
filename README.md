@@ -1,5 +1,7 @@
 # Librewolf Gentoo
 
+***NOTE: This repo has halted due to an ongoing issue with rust.***
+
 Librewolf packaging for Gentoo.
 
 ## Usage
